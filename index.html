@@ -7,71 +7,32 @@
   <meta name="description" content="Schwarz-weißes, verspieltes Café in Hiltrup. Frische Kuchen, herzhafte Snacks, guter Kaffee. Finde uns direkt auf der Karte und starte die Navigation." />
 
   <!-- Leaflet (OpenStreetMap) für die Karte -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    defer
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <style>
-    :root{
-      --bg:#fff;
-      --fg:#111;
-      --muted:#777;
-      --accent:#000;
-      --ring: 0 0 0 3px rgba(0,0,0,.12);
-      --radius: 14px;
-    }
+    :root{ --bg:#fff; --fg:#111; --muted:#777; --accent:#000; --radius:14px; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif}
     a{color:var(--fg);text-decoration:none;border-bottom:1px solid currentColor}
     img{max-width:100%;display:block}
-    button{appearance:none;border:1px solid var(--fg);background:#fff;color:#000;padding:.8rem 1rem;border-radius:999px;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease}
+    button{appearance:none;border:1px solid var(--fg);background:#fff;color:#000;padding:.9rem 1.1rem;border-radius:999px;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease}
     button:active{transform:translateY(1px)}
-    .container{width:min(1100px, 92vw);margin:0 auto;padding:0 0 80px}
+    .container{width:min(1100px,92vw);margin:0 auto;padding:0 0 80px}
 
-    /* Verspielter Schwarz-Weiß-Stil */
     .scribble{position:relative;isolation:isolate}
-    .scribble:before{
-      content:"";
-      position:absolute;inset:-10px;
-      background:
-        radial-gradient(100% 100% at 0% 0%, rgba(0,0,0,.06), transparent 60%),
-        radial-gradient(100% 100% at 100% 0%, rgba(0,0,0,.06), transparent 60%),
-        radial-gradient(100% 100% at 0% 100%, rgba(0,0,0,.06), transparent 60%),
-        radial-gradient(100% 100% at 100% 100%, rgba(0,0,0,.06), transparent 60%);
-      z-index:-1;border-radius:24px;filter:contrast(110%);
-    }
+    .scribble:before{content:"";position:absolute;inset:-10px;background:
+      radial-gradient(100% 100% at 0% 0%, rgba(0,0,0,.06), transparent 60%),
+      radial-gradient(100% 100% at 100% 0%, rgba(0,0,0,.06), transparent 60%),
+      radial-gradient(100% 100% at 0% 100%, rgba(0,0,0,.06), transparent 60%),
+      radial-gradient(100% 100% at 100% 100%, rgba(0,0,0,.06), transparent 60%);
+      z-index:-1;border-radius:24px;filter:contrast(110%)}
     .handline{position:relative;padding-bottom:.4rem;margin-bottom:1.2rem}
-    .handline:after{
-      content:"";
-      position:absolute;left:0;right:0;bottom:0;height:6px;
+    .handline:after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;
       background:repeating-linear-gradient(-7deg, #000 0 10px, transparent 10px 16px);
-      mask:
-        linear-gradient(#000 0 0) 0 50%/100% 2px no-repeat,
-        radial-gradient(12px 6px at 6px 50%,#000 97%,transparent) left,
-        radial-gradient(12px 6px at calc(100% - 6px) 50%,#000 97%,transparent) right;
-      -webkit-mask:
-        linear-gradient(#000 0 0) 0 50%/100% 2px no-repeat,
-        radial-gradient(12px 6px at 6px 50%,#000 97%,transparent) left,
-        radial-gradient(12px 6px at calc(100% - 6px) 50%,#000 97%,transparent) right;
-      opacity:.2;
-    }
+      opacity:.2}
 
-    /* Header */
-    header{
-      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);
-      -webkit-backdrop-filter:saturate(140%) blur(6px);
-      backdrop-filter:saturate(140%) blur(6px);
-      border-bottom:1px solid #0002
-    }
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid #0002}
     nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:min(1100px,92vw);margin:0 auto;padding:.8rem 0}
     .brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.5px}
     .brand img{height:28px;width:auto}
@@ -79,31 +40,23 @@
     .navlinks a:hover{background:#000; color:#fff}
 
     /* Hero */
-    .hero{
-      padding:80px 0 40px;
-      display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center
-    }
+    .hero{padding:80px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
     @media (max-width:900px){.hero{grid-template-columns:1fr}}
-    .hero-card{
-      border:2px solid #000;border-radius:var(--radius); padding:24px; background:#fff;
-      box-shadow:4px 4px 0 #000;
-    }
-    .hero-poster{
-      aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden;border:2px dashed #000;
-      display:grid;place-items:center;background:#f6f6f6;
-    }
-    .hero-poster video{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(110%) brightness(95%)}
+    .hero-card{border:2px solid #000;border-radius:var(--radius);padding:24px;background:#fff;box-shadow:4px 4px 0 #000}
+    .hero-poster{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;border:2px dashed #000;display:grid;place-items:center;background:#f6f6f6}
     .poster-title{font-size:3.2rem;line-height:1.05;margin:.2rem 0 .6rem}
     .poster-sub{color:var(--muted)}
     .chipgroup{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
     .chip{border:1px solid #000;padding:.35rem .7rem;border-radius:999px;font-size:.9rem;background:#fff}
+    .cta-row{display:flex;gap:.6rem;flex-wrap:wrap}
+    .cta-row a.button{display:inline-block;border:1px solid #000;border-radius:999px;padding:.9rem 1.1rem}
 
     /* Sections */
     section{margin:56px 0}
     h2{font-size:1.8rem;margin:0 0 .6rem}
     .lead{color:#444;max-width:65ch}
 
-    /* Menü Tabs */
+    /* Spezialitäten (wie Menü) */
     .tabs{display:flex;gap:.5rem;margin:1rem 0 1.2rem}
     .tabs button{border-color:#0004}
     .tabs button[aria-selected="true"]{background:#000;color:#fff;border-color:#000}
@@ -115,13 +68,7 @@
     .tags{font-size:.85rem;color:#666}
     .badge{font-size:.75rem;border:1px solid #000;padding:.15rem .45rem;border-radius:999px}
 
-    /* Galerie */
-    .gallery{columns:3 280px; column-gap:12px}
-    .g-item{break-inside:avoid;border:1px solid #000;border-radius:12px;margin:0 0 12px;overflow:hidden;background:#fff}
-    .g-ph{aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#0001 0 14px, #0000 14px 28px);display:grid;place-items:center;font-size:.9rem;color:#333}
-    .g-cap{padding:8px 10px;font-size:.9rem;color:#555}
-
-    /* Stimmen (Shuffle) */
+    /* Stimmen */
     .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     @media (max-width:900px){.quotes{grid-template-columns:1fr}}
     .q{border:1px solid #000;border-radius:16px;padding:14px;background:#fff;min-height:140px;display:grid;align-content:space-between}
@@ -140,24 +87,19 @@
     footer{padding:50px 0 80px;color:#555}
     .foot{display:grid;gap:8px;justify-items:center}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-
-    /* Animations */
-    .float{animation:float 4s ease-in-out infinite}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   </style>
 </head>
 <body>
 
   <header>
     <nav>
-      <!-- LOGO + NAME (nur diese Zeile geändert) -->
       <div class="brand">
         <img src="logo.png" alt="Logo Café Nachbarschaft">
-        Café Hiltrup
+        Café Nachbarschaft
       </div>
       <div class="navlinks">
-        <a href="#menue">Menü</a>
-        <a href="#galerie">Galerie</a>
+        <a href="#spezialitaeten">Spezialitäten</a>
+        <a href="galerie.html">Galerie</a>
         <a href="#stimmen">Stimmen</a>
         <a href="#anfahrt">Anfahrt</a>
       </div>
@@ -165,14 +107,15 @@
   </header>
 
   <main class="container">
-    <!-- Hero -->
+    <!-- HERO mit 2 Buttons zu neuen Interfaces -->
     <section class="hero">
       <div class="hero-card scribble">
         <div class="handline">
           <div class="badge">Schwarz. Weiß. Lecker.</div>
           <h1 class="poster-title">Kuchen & Herzhaftes in Hiltrup</h1>
-          <p class="poster-sub">Frisch gebacken, fair bepreist, null Schnickschnack. Komm vorbei oder lass dich von der Karte herführen.</p>
+          <p class="poster-sub">Kurzer Weg zum Glück: Bilder schauen oder direkt Route öffnen. Deine Entscheidung, dein Kaffee.</p>
         </div>
+
         <div class="chipgroup">
           <span class="chip">Hausgemachte Kuchen</span>
           <span class="chip">Herzhafte Toasts</span>
@@ -180,30 +123,27 @@
           <span class="chip">Veggie Optionen</span>
           <span class="chip">Take-away</span>
         </div>
-        <div style="display:flex; gap:.6rem; flex-wrap:wrap">
-          <button onclick="scrollToId('menue')" aria-label="Zum Menü">Menü ansehen</button>
-          <button onclick="scrollToId('anfahrt')" aria-label="Zur Karte">Anfahrt</button>
+
+        <div class="cta-row">
+          <a class="button" href="galerie.html" aria-label="Galerie öffnen">Galerie öffnen</a>
+          <a class="button" href="karte.html" aria-label="Karte öffnen">Karte öffnen</a>
         </div>
       </div>
 
-      <!-- HERO-VIDEO (dieser Block ersetzt den alten Platzhalter) -->
-      <div class="hero-poster" aria-label="Hero-Video">
-        <video autoplay muted loop playsinline poster="hero-poster.jpg">
-          <source src="hero-video.mp4" type="video/mp4">
-          Dein Browser unterstützt kein HTML5-Video.
-        </video>
-        <noscript>
-          <img src="hero-poster.jpg" alt="Café-Eingang" />
-        </noscript>
+      <div class="hero-poster" aria-hidden="true">
+        <div style="text-align:center">
+          <div style="font-size:1.6rem;font-weight:700">Hero-Platzhalter</div>
+          <div class="muted">Optional: kurzes Video oder Foto</div>
+        </div>
       </div>
     </section>
 
-    <!-- Menü -->
-    <section id="menue">
-      <h2 class="handline">Menü</h2>
-      <p class="lead">Süßes, Herzhaftes und Getränke. Alles schwarz-weiß gestaltet, der Geschmack bleibt bunt im Kopf.</p>
+    <!-- Unsere Spezialitäten (wie vorher „Menü“) -->
+    <section id="spezialitaeten">
+      <h2 class="handline">Unsere Spezialitäten</h2>
+      <p class="lead">Süß, herzhaft und flüssiges Gold. Gleiche Struktur wie dein Menü, nur ehrlicher benannt.</p>
 
-      <div class="tabs" role="tablist" aria-label="Menüreiter">
+      <div class="tabs" role="tablist" aria-label="Spezialitäten">
         <button role="tab" aria-selected="true" aria-controls="panel-suess" id="tab-suess" onclick="switchTab('suess')">Süß</button>
         <button role="tab" aria-selected="false" aria-controls="panel-herzhaft" id="tab-herzhaft" onclick="switchTab('herzhaft')">Herzhaft</button>
         <button role="tab" aria-selected="false" aria-controls="panel-getraenke" id="tab-getraenke" onclick="switchTab('getraenke')">Getränke</button>
@@ -270,44 +210,20 @@
       </div>
     </section>
 
-    <!-- Galerie -->
-    <section id="galerie">
-      <h2 class="handline">Galerie</h2>
-      <p class="lead">Ersetze die Platzhalter durch echte Fotos. Alles bleibt in Graustufen, weil Stil.</p>
-      <div class="gallery">
-        <figure class="g-item">
-          <div class="g-ph">Bildplatzhalter</div>
-          <figcaption class="g-cap">Tresen, frisch poliert.</figcaption>
-        </figure>
-        <figure class="g-item">
-          <div class="g-ph" style="aspect-ratio:1/1">Bildplatzhalter</div>
-          <figcaption class="g-cap">Kuchen des Tages.</figcaption>
-        </figure>
-        <figure class="g-item">
-          <div class="g-ph" style="aspect-ratio:3/4">Bildplatzhalter</div>
-          <figcaption class="g-cap">Fensterplatz mit Laune.</figcaption>
-        </figure>
-        <figure class="g-item">
-          <div class="g-ph">Bildplatzhalter</div>
-          <figcaption class="g-cap">Herzhaft, aber nett.</figcaption>
-        </figure>
-      </div>
-    </section>
-
     <!-- Stimmen unserer Gäste -->
     <section id="stimmen">
       <h2 class="handline">Stimmen unserer Gäste</h2>
-      <p class="lead">Fünf Sterne, zufällig gemischt. Weil Auswahl Freiheit braucht.</p>
+      <p class="lead">Fünf Sterne. Zufällig gemischt. Authentisch genug, um glaubwürdig zu sein.</p>
       <div class="quotes" id="quotes"></div>
       <div style="margin-top:.8rem">
         <button onclick="shuffleQuotes()">Weitere Stimmen laden</button>
       </div>
     </section>
 
-    <!-- Karte & Anfahrt -->
+    <!-- Anfahrt & Öffnungszeiten (+ Map) -->
     <section id="anfahrt">
-      <h2 class="handline">Anfahrt</h2>
-      <p class="lead">Wir sind in Hiltrup. Starte die Navigation ab deinem Standort oder sieh dir die Karte an.</p>
+      <h2 class="handline">Anfahrt & Öffnungszeiten</h2>
+      <p class="lead">Wir sind in Hiltrup. Du willst die Vollbild-Karte? Nutze oben den Button oder <a href="karte.html">öffne die Karten-Seite</a>.</p>
 
       <div id="map" class="scribble" role="region" aria-label="Karte mit Standort"></div>
       <div class="map-actions">
@@ -333,22 +249,13 @@
 
     <footer>
       <div class="foot">
-        <div>© <span id="year"></span> Café Hiltrup</div>
+        <div>© <span id="year"></span> Café Nachbarschaft</div>
         <div class="muted">Schwarz, weiß, aber nie langweilig.</div>
       </div>
     </footer>
   </main>
 
   <script>
-    // Utility: smooth scroll
-    function scrollToId(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      const y = el.getBoundingClientRect().top + window.scrollY - 70;
-      window.scrollTo({top:y, behavior:'smooth'});
-    }
-
-    // Menü Tabs
     function switchTab(key){
       const tabs = [
         {tab:'tab-suess', panel:'panel-suess'},
@@ -365,7 +272,6 @@
       });
     }
 
-    // Stimmen (shuffle)
     const QUOTES = [
       {t:"Beste Käsekuchenkruste der Stadt.", w:"Mara K."},
       {t:"Schlichtes Design, starker Kaffee.", w:"Benni R."},
@@ -380,11 +286,7 @@
     ];
     function shuffleQuotes(){
       const target = document.getElementById('quotes');
-      const picks = QUOTES
-        .map(v=>({v, r:Math.random()}))
-        .sort((a,b)=>a.r-b.r)
-        .slice(0,6)
-        .map(x=>x.v);
+      const picks = QUOTES.map(v=>({v, r:Math.random()})).sort((a,b)=>a.r-b.r).slice(0,6).map(x=>x.v);
       target.innerHTML = picks.map(q=>`
         <figure class="q">
           <div>
@@ -397,33 +299,22 @@
     }
     shuffleQuotes();
 
-    // Karte: Leaflet + OpenStreetMap
-    const CAFE = { lat: 51.9027, lng: 7.6527, name: "Café Hiltrup", addr: "Marktallee 100, 48165 Münster-Hiltrup" };
+    // Karte (klein)
+    const CAFE = { lat: 51.9027, lng: 7.6527, name: "Café Nachbarschaft", addr: "Marktallee 100, 48165 Münster-Hiltrup" };
     let map;
     function initMap(){
-      // eslint-disable-next-line no-undef
       map = L.map('map', { scrollWheelZoom:false }).setView([CAFE.lat,CAFE.lng], 15);
-      // eslint-disable-next-line no-undef
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, attribution: '&copy; OpenStreetMap'
-      }).addTo(map);
-      // eslint-disable-next-line no-undef
-      L.marker([CAFE.lat, CAFE.lng])
-        .addTo(map)
-        .bindPopup(`<strong>${CAFE.name}</strong><br>${CAFE.addr}`)
-        .openPopup();
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+      L.marker([CAFE.lat, CAFE.lng]).addTo(map).bindPopup(`<strong>${CAFE.name}</strong><br>${CAFE.addr}`).openPopup();
     }
     document.addEventListener('DOMContentLoaded', initMap);
 
-    // Navigation ab Nutzerstandort
     function navigateFromHere(){
       const targetLat = CAFE.lat.toFixed(6);
       const targetLng = CAFE.lng.toFixed(6);
-      // Geräte-spezifische Deep Links
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       const isAndroid = /Android/.test(navigator.userAgent);
 
-      // Versuche Geolocation für genauere Route
       if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(
           pos=>{
@@ -432,43 +323,30 @@
             const osm = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${sLat}%2C${sLng}%3B${targetLat}%2C${targetLng}`;
             window.location.href = osm;
           },
-          _err=>{
-            // Fallback ohne Start
-            openPlatformLink();
-          },
+          _err=>openPlatformLink(),
           {enableHighAccuracy:true, timeout:5000, maximumAge:0}
         );
-      } else {
-        openPlatformLink();
-      }
+      } else openPlatformLink();
 
       function openPlatformLink(){
         if(isIOS){
-          // Apple Karten
           window.location.href = `maps://?daddr=${targetLat},${targetLng}&dirflg=d`;
         } else if(isAndroid){
-          // Android Geo Intent
           window.location.href = `geo:${targetLat},${targetLng}?q=${encodeURIComponent(`${targetLat},${targetLng} (${CAFE.name})`)}`;
         } else {
-          // Desktop: OpenStreetMap Directions
           window.open(`https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${targetLat}%2C${targetLng}%3B${targetLat}%2C${targetLng}`, '_blank');
         }
       }
     }
 
-    // Adresse kopieren
     function copyAddress(){
       const text = `${CAFE.name}, ${CAFE.addr}`;
       const state = document.getElementById('copyState');
-      navigator.clipboard?.writeText(text).then(()=>{
-        state.textContent = 'Adresse kopiert.';
-      }).catch(()=>{
-        state.textContent = 'Kopieren fehlgeschlagen.';
-      });
+      navigator.clipboard?.writeText(text).then(()=>{ state.textContent = 'Adresse kopiert.'; })
+        .catch(()=>{ state.textContent = 'Kopieren fehlgeschlagen.'; });
       setTimeout(()=>{ state.textContent=''; }, 2500);
     }
 
-    // Jahr im Footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
