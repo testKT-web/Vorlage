@@ -78,24 +78,23 @@
     .navlinks a{border:0;padding:.5rem .7rem;border-radius:999px}
     .navlinks a:hover{background:#000; color:#fff}
 
-    /* Hero */
+    /* Hero: direkt unterm Header, vollflächig */
     .hero{
-      padding:80px 0 40px;
-      display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center
-    }
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
-    .hero-card{
-      border:2px solid #000;border-radius:var(--radius); padding:24px; background:#fff;
-      box-shadow:4px 4px 0 #000;
+      margin:0; padding:0;
     }
     .hero-poster{
-      aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden;border:2px dashed #000;
-      display:grid;place-items:center;background:#f6f6f6;
+      width:100%; height:min(72vh, 720px);
+      border-radius:0; overflow:hidden;
+      border:0; background:#f6f6f6; position:relative;
+      display:grid;place-items:center;
     }
-    .poster-title{font-size:3.2rem;line-height:1.05;margin:.2rem 0 .6rem}
-    .poster-sub{color:var(--muted)}
-    .chipgroup{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
-    .chip{border:1px solid #000;padding:.35rem .7rem;border-radius:999px;font-size:.9rem;background:#fff}
+    .hero-media{
+      width:100%; height:100%; object-fit:cover; filter:grayscale(100%) contrast(110%) brightness(95%);
+    }
+    .hero-cta{
+      position:absolute; inset:auto 0 24px 0; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;
+    }
+    .hero-cta .button{display:inline-block;border:1px solid #000;border-radius:999px;padding:.9rem 1.1rem;background:#fff}
 
     /* Sections */
     section{margin:56px 0}
@@ -153,47 +152,30 @@
         <a href="#" onclick="showView('home');return false;">Start</a>
         <a href="#" onclick="showView('galerie');return false;">Galerie</a>
         <a href="#" onclick="showView('karte');return false;">Karte</a>
+        <a href="#" onclick="showView('anfahrt');return false;">Anfahrt</a>
       </div>
     </nav>
   </header>
 
   <main class="container">
-    <!-- Hero: bleibt immer sichtbar -->
+    <!-- HERO: nur Medien + Overlay-Buttons, direkt unter Header -->
     <section class="hero">
-      <div class="hero-card scribble">
-        <div class="handline">
-          <div class="badge">Schwarz. Weiß. Lecker.</div>
-          <h1 class="poster-title">Kuchen & Herzhaftes in Hiltrup</h1>
-          <p class="poster-sub">Wähl dein Interface: Bilder gucken oder direkt zur Karte. Und wenn du scrollst, kommt die Startansicht mit allem Wichtigen.</p>
-        </div>
-        <div class="chipgroup">
-          <span class="chip">Hausgemachte Kuchen</span>
-          <span class="chip">Herzhafte Toasts</span>
-          <span class="chip">Filter & Espresso</span>
-          <span class="chip">Veggie Optionen</span>
-          <span class="chip">Take-away</span>
-        </div>
-        <div style="display:flex; gap:.6rem; flex-wrap:wrap">
-          <button onclick="showView('galerie')" aria-label="Galerie-Interface anzeigen">Galerie öffnen</button>
-          <button onclick="showView('karte')" aria-label="Karten-Interface anzeigen">Karte öffnen</button>
-        </div>
-      </div>
-
-      <div class="hero-poster" aria-hidden="true">
-        <!-- Dein Video oder Bild kann hier rein -->
-        <div style="text-align:center">
-          <div style="font-size:1.6rem;font-weight:700">Hero</div>
-          <div class="muted">Optional: kurzes Video/Foto</div>
+      <div class="hero-poster" aria-label="Hero">
+        <!-- Ersetz das <img> gern durch ein <video> mit autoplay/muted/loop -->
+        <img class="hero-media" src="hero-poster.jpg" alt="Eingang Café Nachbarschaft" />
+        <div class="hero-cta">
+          <a class="button" href="#" onclick="showView('galerie');return false;" aria-label="Galerie anzeigen">Galerie öffnen</a>
+          <a class="button" href="#" onclick="showView('karte');return false;" aria-label="Speisekarte anzeigen">Karte öffnen</a>
         </div>
       </div>
     </section>
 
-    <!-- VIEW: HOME (Startansicht nach Scroll) -->
+    <!-- VIEW: HOME (Startansicht) -->
     <div id="view-home" class="view active" aria-labelledby="home-label">
       <!-- Unsere Spezialitäten -->
       <section id="spezialitaeten">
         <h2 class="handline" id="home-label">Unsere Spezialitäten</h2>
-        <p class="lead">Süß, herzhaft und flüssig. Gleiche Struktur wie dein Menü, nur ehrlicher benannt.</p>
+        <p class="lead">Süß, herzhaft und flüssig. Gleich sortiert, null Chaos.</p>
 
         <div class="tabs" role="tablist" aria-label="Spezialitäten">
           <button role="tab" aria-selected="true" aria-controls="panel-suess" id="tab-suess" onclick="switchTab('suess')">Süß</button>
@@ -273,14 +255,14 @@
       </section>
 
       <!-- Anfahrt & Öffnungszeiten (+ Map klein) -->
-      <section id="anfahrt">
+      <section id="anfahrt-klein">
         <h2 class="handline">Anfahrt & Öffnungszeiten</h2>
-        <p class="lead">Kleine Karte hier. Für die große Ansicht nutz den Button oben „Karte öffnen“.</p>
+        <p class="lead">Kleine Karte hier. Für die große Ansicht nutz oben „Anfahrt“.</p>
 
         <div id="map" class="scribble" role="region" aria-label="Karte mit Standort"></div>
         <div class="map-actions">
           <button onclick="navigateFromHere()" aria-label="Navigation ab hier starten">Live-Navigation starten</button>
-          <button onclick="copyAddress()" aria-label="Adresse kopieren">Adresse kopiert</button>
+          <button onclick="copyAddress()" aria-label="Adresse kopieren">Adresse kopieren</button>
           <span class="muted mono" id="copyState" aria-live="polite"></span>
         </div>
 
@@ -300,7 +282,7 @@
       </section>
     </div>
 
-    <!-- VIEW: GALERIE (eigenes Interface, gleiche Seite) -->
+    <!-- VIEW: GALERIE (eigene Oberfläche, gleiche Seite) -->
     <div id="view-galerie" class="view" aria-labelledby="galerie-label">
       <section id="galerie">
         <h2 class="handline" id="galerie-label">Galerie</h2>
@@ -322,11 +304,49 @@
       </section>
     </div>
 
-    <!-- VIEW: KARTE (groß, gleiche Seite) -->
+    <!-- VIEW: KARTE = SPEISEKARTE (Menü-Ansicht, gleiche Seite) -->
     <div id="view-karte" class="view" aria-labelledby="karte-label">
       <section>
-        <h2 class="handline" id="karte-label">Karte & Anfahrt (groß)</h2>
-        <p class="lead">Hier ist die große Karten-Ansicht, ohne Restgedöns.</p>
+        <h2 class="handline" id="karte-label">Unsere Karte</h2>
+        <p class="lead">Alles auf einen Blick. Sortiert in Süß, Herzhaft und Getränke.</p>
+
+        <div class="tabs" role="tablist" aria-label="Speisekarte">
+          <button role="tab" aria-selected="true" aria-controls="k-suess" id="k-tab-suess" onclick="switchMenu('suess')">Süß</button>
+          <button role="tab" aria-selected="false" aria-controls="k-herzhaft" id="k-tab-herzhaft" onclick="switchMenu('herzhaft')">Herzhaft</button>
+          <button role="tab" aria-selected="false" aria-controls="k-getraenke" id="k-tab-getraenke" onclick="switchMenu('getraenke')">Getränke</button>
+        </div>
+
+        <div id="k-suess" role="tabpanel" aria-labelledby="k-tab-suess">
+          <div class="menu-grid">
+            <article class="card"><div class="pic">Cheesecake — Bild</div><div><strong>Cheesecake Classic</strong><div class="tags">Zitrone, Vanille</div></div><div class="price">3,90 €</div></article>
+            <article class="card"><div class="pic">Brownie — Bild</div><div><strong>Espresso-Brownie</strong><div class="tags">Dunkel, fudgy</div></div><div class="price">3,10 €</div></article>
+            <article class="card"><div class="pic">Apfelkuchen — Bild</div><div><strong>Apfelkuchen</strong><div class="tags">Zimt, Streusel</div></div><div class="price">3,60 €</div></article>
+          </div>
+        </div>
+
+        <div id="k-herzhaft" role="tabpanel" aria-labelledby="k-tab-herzhaft" hidden>
+          <div class="menu-grid">
+            <article class="card"><div class="pic">Toast — Bild</div><div><strong>Cheddar-Toast</strong><div class="tags">Zwiebelchutney</div></div><div class="price">5,20 €</div></article>
+            <article class="card"><div class="pic">Quiche — Bild</div><div><strong>Quiche des Tages</strong><div class="tags">Wechselt</div></div><div class="price">4,90 €</div></article>
+            <article class="card"><div class="pic">Suppe — Bild</div><div><strong>Schwarze-Bohnen-Suppe</strong> <span class="badge">vegan</span><div class="tags">Mit Brot</div></div><div class="price">5,50 €</div></article>
+          </div>
+        </div>
+
+        <div id="k-getraenke" role="tabpanel" aria-labelledby="k-tab-getraenke" hidden>
+          <div class="menu-grid">
+            <article class="card"><div class="pic">Cappuccino — Bild</div><div><strong>Cappuccino</strong><div class="tags">Doppio-Basis</div></div><div class="price">3,20 €</div></article>
+            <article class="card"><div class="pic">Filter — Bild</div><div><strong>Filterkaffee</strong><div class="tags">Hell geröstet</div></div><div class="price">2,60 €</div></article>
+            <article class="card"><div class="pic">Limo — Bild</div><div><strong>Hauslimonade</strong><div class="tags">Zitrone & Salbei</div></div><div class="price">3,00 €</div></article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW: ANFAHRT (große Karte, eigene Oberfläche) -->
+    <div id="view-anfahrt" class="view" aria-labelledby="anfahrt-label">
+      <section>
+        <h2 class="handline" id="anfahrt-label">Anfahrt (groß)</h2>
+        <p class="lead">Große Kartenansicht, ohne Ablenkung.</p>
         <div id="map-full" role="region" aria-label="Große Karte"></div>
         <div class="map-actions">
           <button onclick="navigateFromHere()">Live-Navigation starten</button>
@@ -345,7 +365,7 @@
   </main>
 
   <script>
-    // Tabs für Spezialitäten
+    // Tabs für Start-Spezialitäten
     function switchTab(key){
       const tabs = [
         {tab:'tab-suess', panel:'panel-suess'},
@@ -357,6 +377,23 @@
           (key==='suess' && t.panel==='panel-suess') ||
           (key==='herzhaft' && t.panel==='panel-herzhaft') ||
           (key==='getraenke' && t.panel==='panel-getraenke');
+        document.getElementById(t.tab).setAttribute('aria-selected', isActive ? 'true':'false');
+        document.getElementById(t.panel).hidden = !isActive;
+      });
+    }
+
+    // Tabs für die große Speisekarte (View: Karte)
+    function switchMenu(key){
+      const tabs = [
+        {tab:'k-tab-suess', panel:'k-suess'},
+        {tab:'k-tab-herzhaft', panel:'k-herzhaft'},
+        {tab:'k-tab-getraenke', panel:'k-getraenke'},
+      ];
+      tabs.forEach(t=>{
+        const isActive =
+          (key==='suess' && t.panel==='k-suess') ||
+          (key==='herzhaft' && t.panel==='k-herzhaft') ||
+          (key==='getraenke' && t.panel==='k-getraenke');
         document.getElementById(t.tab).setAttribute('aria-selected', isActive ? 'true':'false');
         document.getElementById(t.panel).hidden = !isActive;
       });
@@ -377,11 +414,7 @@
     ];
     function shuffleQuotes(){
       const target = document.getElementById('quotes');
-      const picks = QUOTES
-        .map(v=>({v, r:Math.random()}))
-        .sort((a,b)=>a.r-b.r)
-        .slice(0,6)
-        .map(x=>x.v);
+      const picks = QUOTES.map(v=>({v, r:Math.random()})).sort((a,b)=>a.r-b.r).slice(0,6).map(x=>x.v);
       target.innerHTML = picks.map(q=>`
         <figure class="q">
           <div>
@@ -406,10 +439,7 @@
     }
 
     function initBigMap(){
-      if (mapBig) {
-        setTimeout(()=>{ mapBig.invalidateSize(); }, 50);
-        return;
-      }
+      if (mapBig) { setTimeout(()=>{ mapBig.invalidateSize(); }, 50); return; }
       mapBig = L.map('map-full', { scrollWheelZoom:true }).setView([CAFE.lat,CAFE.lng], 15);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(mapBig);
       L.marker([CAFE.lat, CAFE.lng]).addTo(mapBig).bindPopup(`<strong>${CAFE.name}</strong><br>${CAFE.addr}`).openPopup();
@@ -423,17 +453,14 @@
 
     // View-Umschalter
     function showView(name){
-      const views = ['home','galerie','karte'];
+      const views = ['home','galerie','karte','anfahrt'];
       views.forEach(v=>{
         const el = document.getElementById('view-'+v);
         if (!el) return;
         el.classList.toggle('active', v===name);
       });
-      // Nach Wechsel zum Anfang der Container scrollen
       window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Karte initialisieren bei Bedarf
-      if (name==='karte') initBigMap();
+      if (name==='anfahrt') initBigMap();
     }
 
     // Navigation ab Nutzerstandort
@@ -467,7 +494,7 @@
       }
     }
 
-    // Adresse kopieren (für beide Views nutzbar)
+    // Adresse kopieren (für beide Map-States nutzbar)
     function copyAddress(){
       const text = `${CAFE.name}, ${CAFE.addr}`;
       const state1 = document.getElementById('copyState');
