@@ -38,9 +38,7 @@
     .container{width:min(1100px, 92vw);margin:0 auto;padding:0 0 80px}
 
     /* Verspielter Schwarz-Weiß-Stil */
-    .scribble{
-      position:relative;isolation:isolate
-    }
+    .scribble{position:relative;isolation:isolate}
     .scribble:before{
       content:"";
       position:absolute;inset:-10px;
@@ -51,14 +49,11 @@
         radial-gradient(100% 100% at 100% 100%, rgba(0,0,0,.06), transparent 60%);
       z-index:-1;border-radius:24px;filter:contrast(110%);
     }
-    .handline{
-      position:relative;padding-bottom:.4rem;margin-bottom:1.2rem
-    }
+    .handline{position:relative;padding-bottom:.4rem;margin-bottom:1.2rem}
     .handline:after{
       content:"";
       position:absolute;left:0;right:0;bottom:0;height:6px;
-      background:
-        repeating-linear-gradient(-7deg, #000 0 10px, transparent 10px 16px);
+      background:repeating-linear-gradient(-7deg, #000 0 10px, transparent 10px 16px);
       mask:
         linear-gradient(#000 0 0) 0 50%/100% 2px no-repeat,
         radial-gradient(12px 6px at 6px 50%,#000 97%,transparent) left,
@@ -78,7 +73,8 @@
       border-bottom:1px solid #0002
     }
     nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:min(1100px,92vw);margin:0 auto;padding:.8rem 0}
-    .brand{font-weight:700;letter-spacing:.5px}
+    .brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.5px}
+    .brand img{height:28px;width:auto}
     .navlinks a{border:0;padding:.5rem .7rem;border-radius:999px}
     .navlinks a:hover{background:#000; color:#fff}
 
@@ -96,12 +92,11 @@
       aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden;border:2px dashed #000;
       display:grid;place-items:center;background:#f6f6f6;
     }
+    .hero-poster video{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(110%) brightness(95%)}
     .poster-title{font-size:3.2rem;line-height:1.05;margin:.2rem 0 .6rem}
     .poster-sub{color:var(--muted)}
     .chipgroup{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
-    .chip{
-      border:1px solid #000;padding:.35rem .7rem;border-radius:999px;font-size:.9rem;background:#fff
-    }
+    .chip{border:1px solid #000;padding:.35rem .7rem;border-radius:999px;font-size:.9rem;background:#fff}
 
     /* Sections */
     section{margin:56px 0}
@@ -112,39 +107,24 @@
     .tabs{display:flex;gap:.5rem;margin:1rem 0 1.2rem}
     .tabs button{border-color:#0004}
     .tabs button[aria-selected="true"]{background:#000;color:#fff;border-color:#000}
-    .menu-grid{
-      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px
-    }
+    .menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     @media (max-width:900px){.menu-grid{grid-template-columns:1fr}}
-    .card{
-      border:1.5px solid #000;border-radius:16px;padding:14px;background:#fff;display:grid;gap:10px
-    }
-    .card .pic{
-      aspect-ratio:4/3;border:1px dashed #000;border-radius:12px;display:grid;place-items:center;background:#fafafa;color:#555;font-size:.9rem
-    }
+    .card{border:1.5px solid #000;border-radius:16px;padding:14px;background:#fff;display:grid;gap:10px}
+    .card .pic{aspect-ratio:4/3;border:1px dashed #000;border-radius:12px;display:grid;place-items:center;background:#fafafa;color:#555;font-size:.9rem}
     .price{font-weight:700}
     .tags{font-size:.85rem;color:#666}
     .badge{font-size:.75rem;border:1px solid #000;padding:.15rem .45rem;border-radius:999px}
 
     /* Galerie */
-    .gallery{
-      columns:3 280px; column-gap:12px
-    }
-    .g-item{
-      break-inside:avoid;border:1px solid #000;border-radius:12px;margin:0 0 12px;overflow:hidden;background:#fff
-    }
-    .g-ph{
-      aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#0001 0 14px, #0000 14px 28px);
-      display:grid;place-items:center;font-size:.9rem;color:#333
-    }
+    .gallery{columns:3 280px; column-gap:12px}
+    .g-item{break-inside:avoid;border:1px solid #000;border-radius:12px;margin:0 0 12px;overflow:hidden;background:#fff}
+    .g-ph{aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#0001 0 14px, #0000 14px 28px);display:grid;place-items:center;font-size:.9rem;color:#333}
     .g-cap{padding:8px 10px;font-size:.9rem;color:#555}
 
     /* Stimmen (Shuffle) */
     .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     @media (max-width:900px){.quotes{grid-template-columns:1fr}}
-    .q{
-      border:1px solid #000;border-radius:16px;padding:14px;background:#fff;min-height:140px;display:grid;align-content:space-between
-    }
+    .q{border:1px solid #000;border-radius:16px;padding:14px;background:#fff;min-height:140px;display:grid;align-content:space-between}
     .stars{letter-spacing:2px}
     .who{color:#555;font-size:.9rem}
 
@@ -170,7 +150,11 @@
 
   <header>
     <nav>
-      <div class="brand">Café Hiltrup</div>
+      <!-- LOGO + NAME (nur diese Zeile geändert) -->
+      <div class="brand">
+        <img src="logo.png" alt="Logo Café Nachbarschaft">
+        Café Hiltrup
+      </div>
       <div class="navlinks">
         <a href="#menue">Menü</a>
         <a href="#galerie">Galerie</a>
@@ -201,12 +185,16 @@
           <button onclick="scrollToId('anfahrt')" aria-label="Zur Karte">Anfahrt</button>
         </div>
       </div>
-      <div class="hero-poster float" aria-hidden="true">
-        <!-- Platzhalterbild -->
-        <div style="text-align:center">
-          <div style="font-size:1.6rem;font-weight:700">Bildplatzhalter</div>
-          <div class="muted">Füge hier ein Hero-Foto deines Cafés ein</div>
-        </div>
+
+      <!-- HERO-VIDEO (dieser Block ersetzt den alten Platzhalter) -->
+      <div class="hero-poster" aria-label="Hero-Video">
+        <video autoplay muted loop playsinline poster="hero-poster.jpg">
+          <source src="hero-video.mp4" type="video/mp4">
+          Dein Browser unterstützt kein HTML5-Video.
+        </video>
+        <noscript>
+          <img src="hero-poster.jpg" alt="Café-Eingang" />
+        </noscript>
       </div>
     </section>
 
