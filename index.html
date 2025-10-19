@@ -27,6 +27,9 @@
     .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:10px 0}
     .nav a{justify-self:start}
     .nav .right{justify-self:end}
+    /* Logo zentrieren – immer, auch mobil */
+    .nav .logo{justify-self:center;margin-inline:auto}
+
     .logo{
       width:64px;height:64px;border-radius:50%;
       display:grid;place-items:center;font-family:"Playfair Display",serif;font-weight:700;letter-spacing:.5px;
@@ -39,21 +42,18 @@
         radial-gradient(circle at 30% 30%,rgba(255,255,255,.88),rgba(255,255,255,.72)),
         linear-gradient(135deg,#f2f2f2,#d7d7d7);
       color:#111;
-      /* Schatten entfernt wie gewünscht */
-      box-shadow:none;
+      box-shadow:none; /* Schatten weg */
     }
     [data-theme="women"] .logo{
       background:linear-gradient(135deg,#ffe9f2,#ffd5e6);
       color:#1a1a1a;
-      /* etwas goldener Schimmer bleibt dezent, kein Dropshadow nötig */
-      box-shadow:inset 0 0 0 4px rgba(255,255,255,.95);
+      box-shadow:inset 0 0 0 4px rgba(255,255,255,.95); /* dezenter Innenring */
       border-color:rgba(0,0,0,.06);
     }
     [data-theme="men"] .logo{
       background:#000;            /* satt schwarz gefüllt */
       color:#e9ecf1;
-      /* klarer weißer Innenring, KEIN externer Schatten */
-      box-shadow:inset 0 0 0 5px rgba(255,255,255,.45);
+      box-shadow:inset 0 0 0 5px rgba(255,255,255,.45); /* weißer Innenring, kein äuß. Schatten */
       border-color:rgba(255,255,255,.18);
     }
 
@@ -82,7 +82,7 @@
     .muted{color:var(--muted)}
     .grid{display:grid;gap:16px}
 
-    /* Gallery: 6 Bilder, symmetrisch */
+    /* Gallery */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .gallery figure{margin:0}
     .gallery .tile{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--elev)}
@@ -110,9 +110,7 @@
     .avatar{width:100%;aspect-ratio:1;border-radius:14px;background:#f0f0f0 center/cover no-repeat;overflow:hidden}
     .bio{min-height:5.5em;line-height:1.35}
 
-    /* Mehr Abstand VOR Team, ohne unten zu kleben */
     .section--team{padding-top:56px}
-    /* zusätzlicher Abstand VOR Öffnungszeiten/Anfahrt belassen */
     .section--afterTeam{padding-top:64px}
 
     /* Öffnungszeiten + Anfahrt */
@@ -130,11 +128,11 @@
     .mapWrap{position:relative}
     .embed{border:0;width:100%;height:420px;border-radius:14px}
 
-    /* Home theme */
+    /* Home theme (rosa überall außer in der Leiste) */
     [data-theme="rose"] body{
       background:
         radial-gradient(1200px 600px at 70% -10%,#ffe7f0 0,transparent 60%),
-        linear-gradient(#fff 0,#fff 100%)
+        linear-gradient(#fff 0,#fff 100%);
     }
 
     /* Views */
@@ -143,43 +141,43 @@
     [data-view="men"] #men{display:block}
     [data-view="women"] #women{display:block}
 
-    /* MEN VIEW styling – Seite weiß + schwarzer Raum-Glow, keine glühenden Karten */
-    #men{background:#fff}
+    /* MEN VIEW – weißer Untergrund, globaler schwarzer Film (permanent) */
+    #men{
+      /* Basis weiß */
+      background:
+        radial-gradient(1100px 480px at 12% -10%, rgba(0,0,0,.28), transparent 62%),
+        radial-gradient(1100px 480px at 88% 112%, rgba(0,0,0,.28), transparent 62%),
+        radial-gradient(2000px 1200px at 50% 25%, rgba(0,0,0,.22), transparent 72%),
+        #ffffff;                            /* letzte Ebene = Weiß */
+      background-blend-mode:multiply,multiply,multiply,normal;
+      background-attachment:fixed,fixed,fixed,scroll;  /* stabil, kein Scroll-Flicker */
+    }
     #men .wrap{color:var(--txt)}
     #men h2{color:#111}
-    #men .wrap::before{
-      content:""; position:fixed; inset:0; pointer-events:none;
-      background:
-        radial-gradient(1100px 420px at 12% -8%, rgba(0,0,0,.20), transparent 62%),
-        radial-gradient(1000px 420px at 88% 108%, rgba(0,0,0,.18), transparent 62%);
-      mix-blend-mode:multiply;
-      opacity:.9;
-    }
+
     .offerGrid{position:relative; display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
     .offerCard{
-      overflow:hidden;border-radius:18px;
-      background:#fff;                                 /* weiße Cards */
+      overflow:hidden;border-radius:18px;background:#fff;
       border:1px solid rgba(0,0,0,.06);
-      box-shadow:0 10px 24px rgba(0,0,0,.10);          /* kein Glow */
+      box-shadow:0 10px 24px rgba(0,0,0,.10);
       position:relative;
     }
-    .offerCard::before{content:none;}                  /* Glow komplett aus */
+    .offerCard::before{content:none}
     .offerImg{aspect-ratio:4/3;background:#f2f2f2 center/cover no-repeat;border-bottom:1px solid rgba(0,0,0,.06)}
     .offerCard > div:last-child{background:transparent}
 
-    /* WOMEN VIEW styling – Seite weiß + stärkerer goldener Hintergrund-Glow */
-    #women{background:#fff}
+    /* WOMEN VIEW – weiß + permanenter goldener Glow (nicht nur beim Scrollen) */
+    #women{
+      background:
+        radial-gradient(1200px 560px at 10% -12%, rgba(199,162,67,.38), transparent 60%),
+        radial-gradient(1100px 520px at 90% 112%, rgba(199,162,67,.34), transparent 62%),
+        radial-gradient(1800px 1000px at 50% 25%, rgba(255,213,110,.20), transparent 74%),
+        #ffffff;
+      background-attachment:fixed,fixed,fixed,scroll;  /* fixiert = dauerhaft sichtbar */
+    }
     #women .wrap{color:var(--women-txt)}
     #women .card{background:#fff;border-color:rgba(0,0,0,.06)}
     #women h2{color:#1a1a1a}
-    #women .wrap::before{
-      content:""; position:fixed; inset:0; pointer-events:none;
-      background:
-        radial-gradient(1200px 520px at 10% -12%, rgba(199,162,67,.35), transparent 60%),
-        radial-gradient(1000px 480px at 90% 112%, rgba(199,162,67,.30), transparent 62%),
-        radial-gradient(1600px 900px at 50% 25%, rgba(255,213,110,.18), transparent 72%);
-      mix-blend-mode:screen; opacity:1;
-    }
     .sparkle{position:absolute; inset:auto 12px 12px auto; font-size:22px; color:#d4b14f; text-shadow:0 0 15px rgba(212,177,79,.6)}
 
     /* micro-interactions */
@@ -188,7 +186,7 @@
     .fadeUp{opacity:0; transform:translateY(10px); animation:fadeUp .6s ease forwards;}
     @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
 
-    /* BOOKING MODAL (Fullscreen) – mobil sauber nutzbar */
+    /* BOOKING MODAL – mobil nutzbar */
     .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:200}
     .modal.open{display:flex}
     .modalCard{width:min(1100px,94vw); height:min(90vh,900px); background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.35); display:flex; flex-direction:column}
@@ -196,16 +194,15 @@
     .modalBody{flex:1; overflow:auto}
     .modalBody .embed{height:100%; border-radius:0; width:100%}
 
-    /* Mobile: Modal wirklich full-screen, keine abgeschnittenen Buttons */
+    /* Mobile */
     @media (max-width:900px){
       .heroInner{grid-template-columns:1fr;gap:12px}
       .section--team{padding-top:42px}
       .cols{grid-template-columns:1fr}
-      .nav{grid-template-columns:auto 1fr auto}
+      .nav{grid-template-columns:1fr auto 1fr} /* mittlere Spalte auto → wirklich mittig */
       .logo{width:56px;height:56px}
 
       .modalCard{width:100vw; height:100dvh; border-radius:0}
-      .modalBody{flex:1}
       .modalBody .embed{height:calc(100dvh - 56px)} /* 56px ≈ Kopfbereich */
     }
 
@@ -262,11 +259,9 @@
       </div>
     </div>
 
-    <!-- GOOGLE REVIEWS (rotierend, 3 sichtbar) -->
+    <!-- GOOGLE REVIEWS -->
     <section class="container reviews">
-      <div class="reviewsHead">
-        <h2>Google-Bewertungen</h2>
-      </div>
+      <div class="reviewsHead"><h2>Google-Bewertungen</h2></div>
       <div id="reviewsGrid" class="reviewsGrid"></div>
     </section>
 
@@ -289,29 +284,23 @@
       <div class="grid team">
         <article class="card teamCard hoverRaise">
           <div class="avatar" style="background-image:url('/img/team-jody.jpg')"></div>
-          <div>
-            <strong>Jody</strong><br><span class="muted">Inhaber:in</span>
-          </div>
+          <div><strong>Jody</strong><br><span class="muted">Inhaber:in</span></div>
           <p class="bio muted">Ich liebe klare Schnitte und ehrliche Beratung. Vier Zeilen Platz klingen lang, aber ich rede lieber kurz und schneide präzise.</p>
         </article>
         <article class="card teamCard hoverRaise">
           <div class="avatar" style="background-image:url('/img/team-2.jpg')"></div>
-          <div>
-            <strong>Alex</strong><br><span class="muted">Color Specialist</span>
-          </div>
+          <div><strong>Alex</strong><br><span class="muted">Color Specialist</span></div>
           <p class="bio muted">Balayage ohne Blaustich, Versprechen ohne Phrasen. Ich mache Haarfarben, die zu Alltag und Persönlichkeit passen.</p>
         </article>
         <article class="card teamCard hoverRaise">
           <div class="avatar" style="background-image:url('/img/team-3.jpg')"></div>
-          <div>
-            <strong>Mina</strong><br><span class="muted">Stylistin</span>
-          </div>
+          <div><strong>Mina</strong><br><span class="muted">Stylistin</span></div>
           <p class="bio muted">Schnell, sauber, sympathisch. Ich mag Looks, die mitwachsen, statt nach zwei Wochen zu nerven.</p>
         </article>
       </div>
     </section>
 
-    <!-- INFO: Öffnungszeiten + Anfahrt -->
+    <!-- INFO -->
     <section class="container section--afterTeam">
       <div class="cols">
         <div class="card infoCard">
@@ -329,10 +318,8 @@
         <div class="card infoCard mapWrap">
           <h2>Anfahrt</h2>
           <p class="muted" style="margin:6px 0 12px"><strong>Marktallee 18</strong>, 48165 Münster</p>
-          <iframe id="mapFrame" class="embed" title="Karte"
-                  loading="lazy"
-                  src="https://www.google.com/maps?ll=51.903322,7.644676&z=15&t=m&output=embed">
-          </iframe>
+          <iframe id="mapFrame" class="embed" title="Karte" loading="lazy"
+                  src="https://www.google.com/maps?ll=51.903322,7.644676&z=15&t=m&output=embed"></iframe>
           <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
             <a id="routeLink" class="pill" target="_blank" rel="noopener">Route öffnen</a>
           </div>
@@ -465,7 +452,7 @@
     const enc = encodeURIComponent(address);
     if(routeLink){ routeLink.href = `https://www.google.com/maps/dir/?api=1&destination=${enc}`; }
 
-    // ---- GOOGLE REVIEWS (Places API mit Fallback) ----
+    // ---- REVIEWS ----
     const fallbackReviews = [
       {author:'Lena M.', text:'Super nettes Team, schneller Service und top Ergebnis. Absolute Empfehlung!', rating:5, source:'Google'},
       {author:'Daniel P.', text:'Spontan reingeschneit, perfekter Fade. Komme wieder.', rating:5, source:'Google'},
@@ -502,8 +489,7 @@
       if(!GOOGLE_PLACES_API_KEY){ renderBatch(fallbackReviews); setInterval(()=>renderBatch(fallbackReviews),15000); return; }
       const s = document.createElement('script');
       s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places&loading=async`;
-      s.async = true;
-      s.defer = true;
+      s.async = true; s.defer = true;
       s.onload = findPlaceAndFetchReviews;
       s.onerror = ()=>{ renderBatch(fallbackReviews); setInterval(()=>renderBatch(fallbackReviews),15000); };
       document.head.appendChild(s);
