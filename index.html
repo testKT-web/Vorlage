@@ -141,16 +141,16 @@
     [data-view="men"] #men{display:block}
     [data-view="women"] #women{display:block}
 
-    /* MEN VIEW – weißer Untergrund, schwarzer Film der oben am stärksten ist und weit nach unten ausläuft */
+    /* MEN VIEW – weißer Untergrund, globaler schwarzer Film (permanent) */
     #men{
+      /* Basis weiß */
       background:
-        /* starker Glow oben unter der Leiste */
-        radial-gradient(1600px 900px at 50% -10%, rgba(0,0,0,.38) 0%, rgba(0,0,0,.22) 35%, rgba(0,0,0,.12) 60%, transparent 85%),
-        /* langer, sanfter Verlauf bis tief nach unten */
-        linear-gradient(to bottom, rgba(0,0,0,.16) 0%, rgba(0,0,0,.10) 28%, rgba(0,0,0,.06) 55%, rgba(0,0,0,.03) 78%, transparent 100%),
-        #ffffff;
-      background-attachment:fixed,fixed,scroll;
-      background-blend-mode:multiply,normal,normal;
+        radial-gradient(1100px 480px at 12% -10%, rgba(0,0,0,.28), transparent 62%),
+        radial-gradient(1100px 480px at 88% 112%, rgba(0,0,0,.28), transparent 62%),
+        radial-gradient(2000px 1200px at 50% 25%, rgba(0,0,0,.22), transparent 72%),
+        #ffffff;                            /* letzte Ebene = Weiß */
+      background-blend-mode:multiply,multiply,multiply,normal;
+      background-attachment:fixed,fixed,fixed,scroll;  /* stabil, kein Scroll-Flicker */
     }
     #men .wrap{color:var(--txt)}
     #men h2{color:#111}
@@ -166,52 +166,18 @@
     .offerImg{aspect-ratio:4/3;background:#f2f2f2 center/cover no-repeat;border-bottom:1px solid rgba(0,0,0,.06)}
     .offerCard > div:last-child{background:transparent}
 
-    /* WOMEN VIEW – weiß + permanenter, deutlich sichtbarer Gold-Glow
-       oben am stärksten, weich und weit nach unten auslaufend */
+    /* WOMEN VIEW – weiß + permanenter goldener Glow (nicht nur beim Scrollen) */
     #women{
       background:
-        radial-gradient(1700px 980px at 50% -12%, rgba(199,162,67,.55) 0%, rgba(199,162,67,.34) 35%, rgba(199,162,67,.18) 60%, rgba(199,162,67,.08) 80%, transparent 95%),
-        linear-gradient(to bottom, rgba(255,213,110,.28) 0%, rgba(255,213,110,.18) 30%, rgba(255,213,110,.10) 60%, rgba(255,213,110,.04) 85%, transparent 100%),
+        radial-gradient(1200px 560px at 10% -12%, rgba(199,162,67,.38), transparent 60%),
+        radial-gradient(1100px 520px at 90% 112%, rgba(199,162,67,.34), transparent 62%),
+        radial-gradient(1800px 1000px at 50% 25%, rgba(255,213,110,.20), transparent 74%),
         #ffffff;
-      background-attachment:fixed,fixed,scroll;
-      background-blend-mode:screen,screen,normal;
-      position:relative;
+      background-attachment:fixed,fixed,fixed,scroll;  /* fixiert = dauerhaft sichtbar */
     }
-    #women .wrap{color:var(--women-txt); position:relative; z-index:2}
+    #women .wrap{color:var(--women-txt)}
     #women .card{background:#fff;border-color:rgba(0,0,0,.06)}
     #women h2{color:#1a1a1a}
-
-    /* Sterne-Layer (rosa & gold), verteilt am Rand, stören keinen Content */
-    .stars{
-      position:fixed; inset:0; z-index:1; pointer-events:none;
-    }
-    .stars span{
-      position:absolute; font-weight:700; line-height:1;
-      text-shadow:0 0 10px currentColor, 0 0 18px currentColor;
-      opacity:.85;
-    }
-    /* Farben */
-    .star-gold{color:#d4b14f}
-    .star-rose{color:#e84d84}
-
-    /* Größenmix */
-    .stars .s1{font-size:16px}
-    .stars .s2{font-size:18px}
-    .stars .s3{font-size:20px}
-    .stars .s4{font-size:22px}
-
-    /* Vorpositionierte Sterne (Ränder/zwischen Sektionen, nicht über Textkernen) */
-    #women .stars .p1{top:110px; left:8%}
-    #women .stars .p2{top:160px; right:10%}
-    #women .stars .p3{top:380px; left:6%}
-    #women .stars .p4{top:520px; right:8%}
-    #women .stars .p5{top:760px; left:12%}
-    #women .stars .p6{top:920px; right:14%}
-    #women .stars .p7{top:1240px; left:8%}
-    #women .stars .p8{top:1460px; right:10%}
-    #women .stars .p9{top:1780px; left:10%}
-    #women .stars .p10{top:2000px; right:12%}
-
     .sparkle{position:absolute; inset:auto 12px 12px auto; font-size:22px; color:#d4b14f; text-shadow:0 0 15px rgba(212,177,79,.6)}
 
     /* micro-interactions */
@@ -403,20 +369,6 @@
   <!-- WOMEN VIEW -->
   <main id="women" class="view">
     <div class="wrap">
-      <!-- Sterne-Layer -->
-      <div class="stars" aria-hidden="true">
-        <span class="star-rose s2 p1">✦</span>
-        <span class="star-gold s3 p2">✦</span>
-        <span class="star-rose s1 p3">✦</span>
-        <span class="star-gold s2 p4">✦</span>
-        <span class="star-rose s3 p5">✦</span>
-        <span class="star-gold s1 p6">✦</span>
-        <span class="star-rose s2 p7">✦</span>
-        <span class="star-gold s4 p8">✦</span>
-        <span class="star-rose s1 p9">✦</span>
-        <span class="star-gold s2 p10">✦</span>
-      </div>
-
       <section class="container" style="padding:28px 0 12px; position:relative">
         <h2>Damenbereich</h2>
         <div class="sparkle">✦</div>
